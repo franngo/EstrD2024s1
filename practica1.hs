@@ -40,16 +40,16 @@ iguales Oeste Oeste = True
 iguales _ _         = False
 
 siguiente :: Dir -> Dir
---PRECONDICIÓN= El parámetro no puede tomar Oeste como valor.
+--PRECONDICIONES= El parametro no puede tomar Oeste como valor.
 siguiente Norte = Este
 siguiente Este  = Sur
 siguiente Sur   = Norte
-{-Esta función es parcial, ya que contempla restricciones en cuanto a los valores válidos para pasar como
+{-Esta funcion es parcial, ya que contempla restricciones en cuanto a los valores validos para pasar como
 argumentos.-}
 
 --EJERCICIO 3.2
 
-data DiaDeSemana = Lunes | Martes | Miércoles | Jueves | Viernes | Sabado | Domingo
+data DiaDeSemana = Lunes | Martes | Miercoles | Jueves | Viernes | Sabado | Domingo
     deriving Show
 
 primeroYUltimoDia :: (DiaDeSemana, DiaDeSemana)
@@ -57,7 +57,7 @@ primeroYUltimoDia = (Lunes, Domingo)
 
 empiezaConM :: DiaDeSemana -> Bool
 empiezaConM Martes    = True
-empiezaConM Miércoles = True
+empiezaConM Miercoles = True
 empiezaConM _         = False
 
 vieneDespues :: DiaDeSemana -> DiaDeSemana -> Bool
@@ -65,7 +65,7 @@ vieneDespues Domingo d   = vieneDespuesDomingoDe d
 vieneDespues Sabado d    = vieneDespuesSabadoDe d
 vieneDespues Viernes d   = vieneDespuesViernesDe d 
 vieneDespues Jueves d    = vieneDespuesJuevesDe d 
-vieneDespues Miércoles d = vieneDespuesMiércolesDe d 
+vieneDespues Miercoles d = vieneDespuesMiercolesDe d 
 vieneDespues Martes d    = vieneDespuesMartesDe d 
 vieneDespues Lunes _     = False 
 
@@ -87,13 +87,13 @@ vieneDespuesViernesDe _       = True
 vieneDespuesJuevesDe :: DiaDeSemana -> Bool
 vieneDespuesJuevesDe Lunes = True
 vieneDespuesJuevesDe Martes = True
-vieneDespuesJuevesDe Miércoles = True
+vieneDespuesJuevesDe Miercoles = True
 vieneDespuesJuevesDe _       = False
 
-vieneDespuesMiércolesDe :: DiaDeSemana -> Bool
-vieneDespuesMiércolesDe Lunes = True
-vieneDespuesMiércolesDe Martes = True
-vieneDespuesMiércolesDe _     = False
+vieneDespuesMiercolesDe :: DiaDeSemana -> Bool
+vieneDespuesMiercolesDe Lunes = True
+vieneDespuesMiercolesDe Martes = True
+vieneDespuesMiercolesDe _     = False
 
 vieneDespuesMartesDe :: DiaDeSemana -> Bool
 vieneDespuesMartesDe Lunes = True
@@ -146,7 +146,7 @@ esMayorQueLaOtra (P _ e1) (P _ e2) = if (e1>e2)
                                         else False
 
 laQueEsMayor :: Persona -> Persona -> Persona
---PRECONDICIÓN= Ambos argumentos empleados deben tener un valor diferente para el campo de edad.
+--PRECONDICIONES= Ambos argumentos empleados deben tener un valor diferente para el campo de edad.
 laQueEsMayor (P n1 e1) (P n2 e2) = if (e1>e2)
                                     then (P n1 e1)
                                     else (P n2 e2)
@@ -157,7 +157,7 @@ data TipoDePokemon = Agua | Fuego | Planta
     deriving Show
 
 data Pokemon =  Poke TipoDePokemon Int
-                                   --Porcentaje de energía
+                                   --Porcentaje de energia
     deriving Show
 
 data Entrenador = Ent String Pokemon Pokemon
@@ -209,9 +209,9 @@ swap (x,y) = (y,x)
 {-Se usan 2 variables de tipo diferentes debido a que las tuplas son estructuras de datos que contienen 2 
 datos que no necesariamente deben ser del mismo tipo-}
 
-{-EJERCICIO 5.2= Estas funciones son polimórficas porque no definen un tipo de dato específico que deban
+{-EJERCICIO 5.2= Estas funciones son polimorficas porque no definen un tipo de dato especifico que deban
 poseer los argumentos empleados al llamar a las mismas. De este modo, se pueden utilizar argumentos de
-cualquier tipo al llamarlas y no se producirá un error de tipo.-}
+cualquier tipo al llamarlas y no se producira un error de tipo.-}
 
 --EJERCICIO 6
 
@@ -220,13 +220,13 @@ estaVacia (_:_) = False
 estaVacia _ = True
 
 elPrimero :: [a] -> a
---PRECONDICIÓN= La lista empleada como argumento no debe ser vacía.
+--PRECONDICIONES= La lista empleada como argumento no debe ser vacia.
 elPrimero (x:_) = x
 
 sinElPrimero :: [a] -> [a]
---PRECONDICIÓN= La lista empleada como argumento no debe ser vacía.
+--PRECONDICIONES= La lista empleada como argumento no debe ser vacia.
 sinElPrimero (x:y) = y
 
 splitHead :: [a] -> (a, [a])
---PRECONDICIÓN= La lista empleada como argumento no debe ser vacía.
+--PRECONDICIONES= La lista empleada como argumento no debe ser vacia.
 splitHead (x:y) = (x,y)
