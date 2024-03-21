@@ -182,27 +182,16 @@ pierdeConAgua (Poke Fuego _)  = True
 pierdeConAgua (Poke Planta _) = False
 
 cantidadDePokemonDe :: TipoDePokemon -> Entrenador -> Int
-cantidadDePokemonDe Planta (Ent _ poke1 poke2) = (cantidadDePlantaEn (poke1,poke2))
-cantidadDePokemonDe Fuego (Ent _ poke1 poke2) = (cantidadDeFuegoEn (poke1,poke2)) 
-cantidadDePokemonDe Agua (Ent _ poke1 poke2) = (cantidadDeAguaEn (poke1,poke2))  
+cantidadDePokemonDe tipo (Ent _ poke1 poke2) = cantidadDeTipoEn tipo poke1 poke2
 
-cantidadDePlantaEn :: (Pokemon, Pokemon) -> Int
-cantidadDePlantaEn ((Poke Planta _), (Poke Planta _)) = 2
-cantidadDePlantaEn (_, (Poke Planta _)) = 1
-cantidadDePlantaEn ((Poke Planta _), _) = 1
-cantidadDePlantaEn (_, _) = 0
+cantidadDeTipoEn :: TipoDePokemon -> Pokemon -> Pokemon -> Int
+cantidadDeTipoEn tipo poke1 poke2 = (unoSiEsDeTipo poke1 tipo) + (unoSiEsDeTipo poke2 tipo)
 
-cantidadDeFuegoEn :: (Pokemon, Pokemon) -> Int
-cantidadDeFuegoEn ((Poke Fuego _), (Poke Fuego _)) = 2
-cantidadDeFuegoEn (_, (Poke Fuego _)) = 1
-cantidadDeFuegoEn ((Poke Fuego _), _) = 1
-cantidadDeFuegoEn (_, _) = 0
-
-cantidadDeAguaEn :: (Pokemon, Pokemon) -> Int
-cantidadDeAguaEn ((Poke Agua _), (Poke Agua _)) = 2
-cantidadDeAguaEn (_, (Poke Agua _)) = 1
-cantidadDeAguaEn ((Poke Agua _), _) = 1
-cantidadDeAguaEn (_, _) = 0
+unoSiEsDeTipo :: Pokemon -> TipoDePokemon -> Int
+unoSiEsDeTipo (Poke Planta _) Planta = 1
+unoSiEsDeTipo (Poke Fuego _) Fuego   = 1
+unoSiEsDeTipo (Poke Agua _) Agua     = 1
+unoSiEsDeTipo _ _                    = 0
 
 juntarPokemon :: (Entrenador, Entrenador) -> [Pokemon]
 juntarPokemon ((Ent _ poke1 poke2), (Ent _ poke3 poke4)) = [poke1, poke2, poke3, poke4]
