@@ -61,43 +61,16 @@ empiezaConM Miercoles = True
 empiezaConM _         = False
 
 vieneDespues :: DiaDeSemana -> DiaDeSemana -> Bool
-vieneDespues Domingo d   = vieneDespuesDomingoDe d 
-vieneDespues Sabado d    = vieneDespuesSabadoDe d
-vieneDespues Viernes d   = vieneDespuesViernesDe d 
-vieneDespues Jueves d    = vieneDespuesJuevesDe d 
-vieneDespues Miercoles d = vieneDespuesMiercolesDe d 
-vieneDespues Martes d    = vieneDespuesMartesDe d 
-vieneDespues Lunes _     = False 
+vieneDespues x y = (valorNumericoDeDia x)>(valorNumericoDeDia y)
 
-vieneDespuesDomingoDe :: DiaDeSemana -> Bool
-vieneDespuesDomingoDe Domingo = False
-vieneDespuesDomingoDe _       = True
-
-vieneDespuesSabadoDe :: DiaDeSemana -> Bool
-vieneDespuesSabadoDe Domingo = False
-vieneDespuesSabadoDe Sabado = False
-vieneDespuesSabadoDe _       = True
-
-vieneDespuesViernesDe :: DiaDeSemana -> Bool
-vieneDespuesViernesDe Domingo = False
-vieneDespuesViernesDe Sabado = False
-vieneDespuesViernesDe Viernes = False
-vieneDespuesViernesDe _       = True
-
-vieneDespuesJuevesDe :: DiaDeSemana -> Bool
-vieneDespuesJuevesDe Lunes = True
-vieneDespuesJuevesDe Martes = True
-vieneDespuesJuevesDe Miercoles = True
-vieneDespuesJuevesDe _       = False
-
-vieneDespuesMiercolesDe :: DiaDeSemana -> Bool
-vieneDespuesMiercolesDe Lunes = True
-vieneDespuesMiercolesDe Martes = True
-vieneDespuesMiercolesDe _     = False
-
-vieneDespuesMartesDe :: DiaDeSemana -> Bool
-vieneDespuesMartesDe Lunes = True
-vieneDespuesMartesDe _     = False
+valorNumericoDeDia :: DiaDeSemana -> Int
+valorNumericoDeDia Lunes     = 0
+valorNumericoDeDia Martes    = 1
+valorNumericoDeDia Miercoles = 2
+valorNumericoDeDia Jueves    = 3
+valorNumericoDeDia Viernes   = 4
+valorNumericoDeDia Sabado    = 5
+valorNumericoDeDia Domingo   = 6
 
 estaEnElMedio :: DiaDeSemana -> Bool
 estaEnElMedio Lunes   = False
