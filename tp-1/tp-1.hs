@@ -138,21 +138,13 @@ data Entrenador = Ent String Pokemon Pokemon
     deriving Show
 
 superaA :: Pokemon -> Pokemon -> Bool
-superaA (Poke Planta _) g = pierdeConPlanta g
-superaA (Poke Fuego _) g  = pierdeConFuego g 
-superaA (Poke Agua _) g   = pierdeConAgua g
+superaA (Poke tipo1 _) (Poke tipo2 _) = tipo_SuperaA_ tipo1 tipo2
 
-pierdeConPlanta :: Pokemon -> Bool
-pierdeConPlanta (Poke Fuego _) = False
-pierdeConPlanta (Poke Agua _)  = True
-
-pierdeConFuego :: Pokemon -> Bool
-pierdeConFuego (Poke Planta _) = True
-pierdeConFuego (Poke Agua _)   = False
-
-pierdeConAgua :: Pokemon -> Bool
-pierdeConAgua (Poke Fuego _)  = True
-pierdeConAgua (Poke Planta _) = False
+tipo_SuperaA_ :: TipoDePokemon -> TipoDePokemon -> Bool
+tipo_SuperaA_ Agua Fuego = True
+tipo_SuperaA_ Fuego Planta = True
+tipo_SuperaA_ Planta Agua = True
+tipo_SuperaA_ _ _ = False
 
 cantidadDePokemonDe :: TipoDePokemon -> Entrenador -> Int
 cantidadDePokemonDe tipo (Ent _ poke1 poke2) = cantidadDeTipoEn tipo poke1 poke2
