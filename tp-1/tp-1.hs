@@ -158,13 +158,13 @@ cantidadDePokemonDe :: TipoDePokemon -> Entrenador -> Int
 cantidadDePokemonDe tipo (Ent _ poke1 poke2) = cantidadDeTipoEn tipo poke1 poke2
 
 cantidadDeTipoEn :: TipoDePokemon -> Pokemon -> Pokemon -> Int
-cantidadDeTipoEn tipo poke1 poke2 = (unoSiEsDeTipo poke1 tipo) + (unoSiEsDeTipo poke2 tipo)
+cantidadDeTipoEn tipoDado (Poke tipo1 _) (Poke tipo2 _) = (unoSiSonMismoTipo tipoDado tipo1) + (unoSiSonMismoTipo tipoDado tipo2)
 
-unoSiEsDeTipo :: Pokemon -> TipoDePokemon -> Int
-unoSiEsDeTipo (Poke Planta _) Planta = 1
-unoSiEsDeTipo (Poke Fuego _) Fuego   = 1
-unoSiEsDeTipo (Poke Agua _) Agua     = 1
-unoSiEsDeTipo _ _                    = 0
+unoSiSonMismoTipo :: TipoDePokemon -> TipoDePokemon -> Int
+unoSiSonMismoTipo Planta Planta = 1
+unoSiSonMismoTipo Fuego Fuego   = 1
+unoSiSonMismoTipo Agua Agua     = 1
+unoSiSonMismoTipo _ _           = 0
 
 juntarPokemon :: (Entrenador, Entrenador) -> [Pokemon]
 juntarPokemon ((Ent _ poke1 poke2), (Ent _ poke3 poke4)) = [poke1, poke2, poke3, poke4]
