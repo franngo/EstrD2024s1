@@ -291,10 +291,6 @@ numDeIntegrantesDeEn xs (y:ys) = numDeIntegrantesDeEnEste xs y : numDeIntegrante
 
 numDeIntegrantesDeEnEste :: [Rol] -> Proyecto -> Int
 numDeIntegrantesDeEnEste []     _ = 0
-numDeIntegrantesDeEnEste (x:xs) y = if (participaEn x y)
+numDeIntegrantesDeEnEste (x:xs) y = if (estaEnElProyecto x y)
                                       then 1 + numDeIntegrantesDeEnEste xs y
                                       else numDeIntegrantesDeEnEste xs y
-
-participaEn :: Rol -> Proyecto -> Bool
-participaEn (Developer  _ (ConsProyecto x)) (ConsProyecto y) = sonIguales x y
-participaEn (Management _ (ConsProyecto x)) (ConsProyecto y) = sonIguales x y
