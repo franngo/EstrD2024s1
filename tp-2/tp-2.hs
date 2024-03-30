@@ -12,15 +12,11 @@ sucesores (n:ns) = n+1 : sucesores ns
 
 conjuncion :: [Bool] -> Bool
 conjuncion []     = True
-conjuncion (b:bs) = if (b==True)
-                        then conjuncion bs
-                        else False
+conjuncion (b:bs) = b && conjuncion bs
 
 disyuncion :: [Bool] -> Bool
 disyuncion []     = False
-disyuncion (b:bs) = if (b==True)
-                       then True
-                       else disyuncion bs
+disyuncion (b:bs) = b || disyuncion bs
 
 aplanar :: [[a]] -> [a]
 aplanar []           = []
