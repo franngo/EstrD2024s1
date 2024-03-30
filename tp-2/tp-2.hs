@@ -51,9 +51,8 @@ agregarAlFinal [] y     = [y]
 agregarAlFinal (x:xs) y = x : agregarAlFinal xs y
 
 agregar :: [a] -> [a] -> [a]
-agregar [] []         = []
-agregar [] (y:ys)     = y : agregar [] ys
-agregar (x:xs) (y:ys) = x : agregar xs (y:ys)
+agregar [] ys = ys
+agregar (x:xs) ys =  x : agregar xs ys
 
 reversa :: [a] -> [a]
 reversa []     = []
