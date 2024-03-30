@@ -58,14 +58,9 @@ reversa :: [a] -> [a]
 reversa []     = []
 reversa (x:xs) = reversa xs ++ [x] 
 
-sinElUltimo :: [a] -> [a]
---PRECONDICIONES= La lista empleada como argumento no debe ser vacia.
-sinElUltimo (x:[])     = [] 
-sinElUltimo (x:xs) = x : sinElUltimo xs
-
 zipMaximos :: [Int] -> [Int] -> [Int]
-zipMaximos [] _          = []
-zipMaximos _ []          = []
+zipMaximos []     ys     = ys
+zipMaximos xs     []     = xs
 zipMaximos (x:xs) (y:ys) = if (x>=y)
                              then x : zipMaximos xs ys
                              else y : zipMaximos xs ys
