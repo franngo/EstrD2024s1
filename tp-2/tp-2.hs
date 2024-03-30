@@ -68,9 +68,9 @@ zipMaximos (x:xs) (y:ys) = if (x>=y)
 elMinimo :: Ord a => [a] -> a
 --PRECONDICIONES= La lista empleada como argumento no debe ser vacia.
 elMinimo (x:[])   = x
-elMinimo (x:e:xs) = if (x<e)
-                    then elMinimo (x:xs)
-                    else elMinimo (e:xs)
+elMinimo (x:xs) = if (x < elMinimo xs)
+                    then x
+                    else elMinimo xs
 
 --2. RECURSIÓN SOBRE NÚMEROS                    
 
@@ -104,7 +104,7 @@ sinLosPrimeros n (x:xs)  = sinLosPrimeros (n-1) xs
 
 data Persona = ConsPersona String Int
                          --nombre edad
-    deriving Show
+    deriving Show                         
 
 mayoresA :: Int -> [Persona] -> [Persona]
 mayoresA _ []      = [] 
@@ -125,10 +125,10 @@ sumaDeEdadesDe (x:xs) = edadDe x + sumaDeEdadesDe xs
 
 elMasViejo :: [Persona] -> Persona
 --PRECONDICIONES = La lista al menos posee una persona.
-elMasViejo (x:[])     = x
-elMasViejo (x:e:xs)   = if (edadDe x > edadDe e)
-                          then elMasViejo (x:xs)
-                          else elMasViejo (e:xs)
+elMasViejo (x:[]) = x
+elMasViejo (x:xs) = if ((edadDe x) > (edadDe (elMasViejo xs)))
+                      then x
+                      else elMasViejo xs                  
 
 data TipoDePokemon = Agua | Fuego | Planta
     deriving Show
