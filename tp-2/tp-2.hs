@@ -19,9 +19,8 @@ disyuncion []     = False
 disyuncion (b:bs) = b || disyuncion bs
 
 aplanar :: [[a]] -> [a]
-aplanar []           = []
-aplanar ([]:xxs)     = aplanar xxs
-aplanar ((x:xs):xxs) = x : aplanar (xs:xxs)
+aplanar []         = []
+aplanar (xs:xss) = xs ++ aplanar xss
 
 pertenece :: Eq a => a -> [a] -> Bool
 pertenece _ []     = False
