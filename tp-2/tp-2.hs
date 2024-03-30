@@ -56,7 +56,7 @@ agregar (x:xs) ys =  x : agregar xs ys
 
 reversa :: [a] -> [a]
 reversa []     = []
-reversa (x:xs) = reversa xs ++ [x] 
+reversa (x:xs) = agregar (reversa xs) [x]
 
 zipMaximos :: [Int] -> [Int] -> [Int]
 zipMaximos []     ys     = ys
@@ -265,7 +265,7 @@ cantQueTrabajanEnDeLista _ []      = 0
 cantQueTrabajanEnDeLista xs (y:ys) = if (perteneceA y xs)
                                        then 1 + cantQueTrabajanEnDeLista xs ys
                                        else cantQueTrabajanEnDeLista xs ys
-
+                                    
 asignadosPorProyecto :: Empresa -> [(Proyecto, Int)]
 asignadosPorProyecto (ConsEmpresa xs) = emparejar (proyectosDeLista (proyectosDeRoles xs)) (numDeIntegrantesDeEn xs (proyectosDeLista (proyectosDeRoles xs)) )
 
