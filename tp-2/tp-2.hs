@@ -56,7 +56,7 @@ agregar (x:xs) ys =  x : agregar xs ys
 
 reversa :: [a] -> [a]
 reversa []     = []
-reversa (x:xs) = last (x:xs) : reversa (sinElUltimo (x:xs))
+reversa (x:xs) = reversa xs ++ [x] 
 
 sinElUltimo :: [a] -> [a]
 --PRECONDICIONES= La lista empleada como argumento no debe ser vacia.
