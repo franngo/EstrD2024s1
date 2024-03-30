@@ -23,16 +23,16 @@ aplanar []         = []
 aplanar (xs:xss) = xs ++ aplanar xss
 
 pertenece :: Eq a => a -> [a] -> Bool
-pertenece _ []     = False
-pertenece x (y:ys) = if (x==y)
-                        then True
-                        else pertenece x ys
+pertenece _  []    = False
+pertenece x (y:ys) = (x==y) || pertenece x ys                   
 
 apariciones :: Eq a => a -> [a] -> Int
 apariciones _ []     = 0
-apariciones x (y:ys) = if (x==y)
-                         then 1 + apariciones x ys
-                         else apariciones x ys
+apariciones x (y:ys) = unoSi (x==y) + apariciones x ys
+
+unoSi :: Bool -> Int
+unoSi True  = 1 
+unoSi False = 0
 
 losMenoresA :: Int -> [Int] -> [Int]
 losMenoresA _ []       = [] 
