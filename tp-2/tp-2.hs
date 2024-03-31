@@ -267,19 +267,18 @@ cantQueTrabajanEnDeLista xs (y:ys) = if (perteneceA y xs)
                                        else cantQueTrabajanEnDeLista xs ys
                                     
 asignadosPorProyecto :: Empresa -> [(Proyecto, Int)]
-asignadosPorProyecto (ConsEmpresa xs) = emparejar (proyectosDeLista (proyectosDeRoles xs)) (numDeIntegrantesDeEn xs (proyectosDeLista (proyectosDeRoles xs)) )
+asignadosPorProyecto (ConsEmpresa xs) = cuantosEnCadaProyectoDe (tuplasConteo (proyectosDeLista (proyectosDeRoles xs))) (proyectosDeRoles xs)
 
-emparejar :: [Proyecto] -> [Int] -> [(Proyecto, Int)]
-emparejar []     _      = []
-emparejar _      []     = []
-emparejar (x:xs) (y:ys) = (x,y) : emparejar xs ys
+tuplasConteo :: [Proyecto] -> [(Proyecto, Int)]
+tuplasConteo []     = []
+tuplasConteo (x:xs) = (x, 0) : tuplasConteo xs
 
-numDeIntegrantesDeEn :: [Rol] -> [Proyecto] -> [Int]
-numDeIntegrantesDeEn _  []     = []
-numDeIntegrantesDeEn xs (y:ys) = numDeIntegrantesDeEnEste xs y : numDeIntegrantesDeEn xs ys
+cuantosEnCadaProyectoDe :: [(Proyecto, Int)] -> [Proyecto] -> [(Proyecto, Int)]
+cuantosEnCadaProyectoDe  []        _  = []
+cuantosEnCadaProyectoDe ((x,y):xs) zs = (x,(y+(coincidenciasProyecto x zs))) : cuantosEnCadaProyectoDe xs zs
 
-numDeIntegrantesDeEnEste :: [Rol] -> Proyecto -> Int
-numDeIntegrantesDeEnEste []     _ = 0
-numDeIntegrantesDeEnEste (x:xs) y = if (estaEnElProyecto x y)
-                                      then 1 + numDeIntegrantesDeEnEste xs y
-                                      else numDeIntegrantesDeEnEste xs y
+coincidenciasProyecto :: Proyecto -> [Proyecto] -> Int
+coincidenciasProyecto _  []    = 0
+coincidenciasProyecto x (z:zs) = if (sonMismoProyecto x z)
+                                then 1 + coincidenciasProyecto x zs
+                                else coincidenciasProyecto x zs
