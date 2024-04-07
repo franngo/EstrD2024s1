@@ -265,20 +265,19 @@ cantQueTrabajanEnDeLista _ []      = 0
 cantQueTrabajanEnDeLista xs (y:ys) = if (perteneceA y xs)
                                        then 1 + cantQueTrabajanEnDeLista xs ys
                                        else cantQueTrabajanEnDeLista xs ys
+
+--(ConsEmpresa [(Developer Junior (ConsProyecto "pokedex")), (Developer Junior (ConsProyecto "emulador gba")), (Developer Junior (ConsProyecto "emulador gba")), (Developer Junior (ConsProyecto "emulador gba")), (Developer Junior (ConsProyecto "pokedex")), (Developer Junior (ConsProyecto "calculadora")), (Developer Junior (ConsProyecto "gobstones2"))])
+--(ConsEmpresa [(Developer Junior (ConsProyecto "pokedex"))])
                                     
 asignadosPorProyecto :: Empresa -> [(Proyecto, Int)]
-asignadosPorProyecto (ConsEmpresa xs) = cuantosEnCadaProyectoDe (tuplasConteo (proyectosDeLista (proyectosDeRoles xs))) (proyectosDeRoles xs)
+asignadosPorProyecto (ConsEmpresa xs) = cuantosEnCadaProyectoDeLosRoles xs []
 
-tuplasConteo :: [Proyecto] -> [(Proyecto, Int)]
-tuplasConteo []     = []
-tuplasConteo (x:xs) = (x, 0) : tuplasConteo xs
+cuantosEnCadaProyectoDeLosRoles :: [Rol] -> [(Proyecto, Int)] -> [(Proyecto, Int)]
+cuantosEnCadaProyectoDeLosRoles []     ys = ys
+cuantosEnCadaProyectoDeLosRoles (x:xs) ys = cuantosEnCadaProyectoDeLosRoles xs (computacionDeRol x ys)
 
-cuantosEnCadaProyectoDe :: [(Proyecto, Int)] -> [Proyecto] -> [(Proyecto, Int)]
-cuantosEnCadaProyectoDe  []        _  = []
-cuantosEnCadaProyectoDe ((x,y):xs) zs = (x,(y+(coincidenciasProyecto x zs))) : cuantosEnCadaProyectoDe xs zs
-
-coincidenciasProyecto :: Proyecto -> [Proyecto] -> Int
-coincidenciasProyecto _  []    = 0
-coincidenciasProyecto x (z:zs) = if (sonMismoProyecto x z)
-                                then 1 + coincidenciasProyecto x zs
-                                else coincidenciasProyecto x zs
+computacionDeRol :: Rol -> [(Proyecto, Int)] -> [(Proyecto, Int)]
+computacionDeRol rol []         = [((proyectoDeRol rol),1)]
+computacionDeRol rol ((x,y):xs) = if(sonMismoProyecto (proyectoDeRol rol) x) 
+                                         then ((x,(y+1)):xs)
+                                         else (x,y) : (computacionDeRol rol xs)
