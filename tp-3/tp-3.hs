@@ -68,10 +68,11 @@ pasosHastaTesoro (Cofre objs cam) = if (contieneTesoro objs)
                                       else 1 + pasosHastaTesoro cam
 
 hayTesoroEn :: Int -> Camino -> Bool
-hayTesoroEn (-1) _               = False
-hayTesoroEn _   Fin              = False
+hayTesoroEn 0   (Cofre objs cam) = contieneTesoro objs
+hayTesoroEn 0   _                = False
+hayTesoroEn num Fin              = False
 hayTesoroEn num (Nada cam)       = hayTesoroEn (num-1) cam
-hayTesoroEn num (Cofre objs cam) = (contieneTesoro objs) || (hayTesoroEn (num-1) cam)
+hayTesoroEn num (Cofre objs cam) = (hayTesoroEn (num-1) cam)
 
 alMenosNTesoros :: Int -> Camino -> Bool
 alMenosNTesoros num cam = (cantidadDeTesorosEn cam) >= num
@@ -135,12 +136,12 @@ leaves (NodeT x ys zs) = x : (leaves ys) ++ (leaves zs)
 
 heightT :: Tree a -> Int
 heightT EmptyT          = (-1)
-heightT (NodeT x ys zs) = 1 + heightT (masLargoEntre ys zs)
+heightT (NodeT x t1 t2) = 1 + mayorEntre (heightT t1) (heightT t2)
 
-masLargoEntre :: Tree a -> Tree a -> Tree a
-masLargoEntre t1 t2 = if ((sizeT t1) > (sizeT t2))
-                        then t1
-                        else t2                       
+mayorEntre :: Int -> Int -> Int
+mayorEntre n1 n2 = if (n1 > n2)
+                        then n1
+                        else n2                          
                         
 mirrorT :: Tree a -> Tree a
 mirrorT EmptyT          = EmptyT
