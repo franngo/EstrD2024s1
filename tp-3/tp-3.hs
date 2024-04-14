@@ -162,12 +162,13 @@ levelN n (NodeT x ys zs) = (levelN (n-1) ys) ++ (levelN (n-1) zs)
 --(NodeT 3 (NodeT 4 (NodeT 7 EmptyT EmptyT) (NodeT 5 EmptyT EmptyT)) (NodeT 3 EmptyT EmptyT))
 
 listPerLevel :: Tree a -> [[a]]
---OBSERVACIÓN= Los niveles son descritos desde el más lejano a la raíz hasta al más cercano a esta.
-listPerLevel tree = nivelesDeArbolDeTamaño tree (heightT tree)
+listPerLevel EmptyT          = []
+listPerLevel (NodeT x t1 t2) = [x] : (juntarNivelesDe (listPerLevel t1) (listPerLevel t2))
 
-nivelesDeArbolDeTamaño :: Tree a -> Int -> [[a]]
-nivelesDeArbolDeTamaño _    (-1) = []
-nivelesDeArbolDeTamaño tree num  = (levelN num tree) : (nivelesDeArbolDeTamaño tree (num-1))
+juntarNivelesDe :: [[a]] -> [[a]] -> [[a]]
+juntarNivelesDe  xss      []       = xss
+juntarNivelesDe  []        yss     = yss
+juntarNivelesDe (xs:xss) (ys:yss) = (xs++ys) : (juntarNivelesDe xss yss)
 
 ramaMasLarga :: Tree a -> [a]
 ramaMasLarga EmptyT          = []
