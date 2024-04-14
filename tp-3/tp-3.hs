@@ -131,8 +131,9 @@ aparicionesT p (NodeT x ys zs) = if (p==x)
                                  else (aparicionesT p ys) + (aparicionesT p zs)
 
 leaves :: Tree a -> [a]
-leaves EmptyT          = []
-leaves (NodeT x ys zs) = x : (leaves ys) ++ (leaves zs)
+leaves EmptyT                  = []
+leaves (NodeT x EmptyT EmptyT) = [x] 
+leaves (NodeT x ys zs)         = (leaves ys) ++ (leaves zs)
 
 heightT :: Tree a -> Int
 heightT EmptyT          = (-1)
