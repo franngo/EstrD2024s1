@@ -180,13 +180,11 @@ laMasLargaEntre xs ys= if ((length xs) > (length ys))
 
 todosLosCaminos :: Tree a -> [[a]]
 todosLosCaminos EmptyT          = []
-todosLosCaminos (NodeT x ys zs) = [x] : (todosLosCaminosCon_Adelante [x] ys zs)
+todosLosCaminos (NodeT x t1 t2) = [x] : (consACada x ((todosLosCaminos t1) ++ (todosLosCaminos t2)))
 
-todosLosCaminosCon_Adelante :: [a] -> Tree a -> Tree a -> [[a]]
-todosLosCaminosCon_Adelante x EmptyT EmptyT = []
-todosLosCaminosCon_Adelante x ys EmptyT     = (x++(objetoDe ys)) : (todosLosCaminosCon_Adelante (x++(objetoDe ys)) (primerTreeDe ys) (segundoTreeDe ys))
-todosLosCaminosCon_Adelante x EmptyT zs     = (x++(objetoDe zs)) : (todosLosCaminosCon_Adelante (x++(objetoDe zs)) (primerTreeDe zs) (segundoTreeDe zs))
-todosLosCaminosCon_Adelante x ys zs         = (x++(objetoDe ys)) : (x++(objetoDe zs)) : (todosLosCaminosCon_Adelante (x++(objetoDe ys)) (primerTreeDe ys) (segundoTreeDe ys)) ++ (todosLosCaminosCon_Adelante (x++(objetoDe zs)) (primerTreeDe zs) (segundoTreeDe zs))
+consACada :: a -> [[a]] -> [[a]]
+consACada x []       = []
+consACada x (xs:xss) = (x:xs) : consACada x xss   
 
 objetoDe :: Tree a -> [a]
 objetoDe EmptyT        = []
