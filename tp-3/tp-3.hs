@@ -214,36 +214,23 @@ eval (Prod op1 op2) = (eval op1) * (eval op2)
 eval (Neg op1)      = (-(eval op1))
 
 simplificar :: ExpA -> ExpA
-simplificar (Sum op1 op2)  = if (not (equivaleA 0 op1 || equivaleA 0 op2))
-                               then (Sum op1 op2) 
-                               else (elQueNoEs 0 op1 op2)                         
-simplificar (Prod op1 op2) = if ( (equivaleA 0 op1) || (equivaleA 0 op2) )
-                               then (Valor 0)
-                               else (prodSiOpEsUno (Prod op1 op2))                            
-simplificar (Neg op1)      = if (esNeg op1)
-                               then (siguienteDeNeg op1)
-                               else (Neg op1)                        
+simplificar (Valor x)      = Valor x
+simplificar (Sum op1 op2)  = sumaSimplificada (simplificar op1) (simplificar op2)                                                  
+simplificar (Prod op1 op2) = productoSimplificado (simplificar op1) (simplificar op2)                                                      
+simplificar (Neg op1)      = negacionSimplificada (simplificar op1)
+                                
+sumaSimplificada :: ExpA -> ExpA -> ExpA
+sumaSimplificada op1 (Valor 0) = op1
+sumaSimplificada (Valor 0) op2 = op2
+sumaSimplificada op1 op2       = Sum op1 op2
 
-equivaleA :: Int -> ExpA -> Bool
-equivaleA n op = ((eval op) == n)
+productoSimplificado :: ExpA -> ExpA -> ExpA
+productoSimplificado op1 (Valor 0) = Valor 0
+productoSimplificado (Valor 0) op2 = Valor 0
+productoSimplificado op1 (Valor 1) = op1
+productoSimplificado (Valor 1) op2 = op2
+productoSimplificado op1 op2       = Prod op1 op2
 
-elQueNoEs :: Int -> ExpA -> ExpA -> ExpA
---PRECONDICIÓN= Al menos una de las dos expresiones aritméticas empleadas como argumentos debe equivaler a n.
-elQueNoEs n op1 op2 = if (equivaleA n op1)
-                        then op2
-                        else op1
-
-prodSiOpEsUno :: ExpA -> ExpA
---PRECONDICIÓN= El argumento de tipo ExpA empleado debe coincidir con el caso "Prod x y".
-prodSiOpEsUno (Prod op1 op2) = if ( (equivaleA 1 op1) || (equivaleA 1 op2) )
-                               then (elQueNoEs 1 op1 op2)
-                               else (Prod op1 op2)
-
-esNeg :: ExpA -> Bool
---PRECONDICIÓN= El argumento de tipo ExpA empleado debe coincidir con el caso "Neg x".
-esNeg (Neg _) = True
-esNeg _       = False
-
-siguienteDeNeg :: ExpA -> ExpA
---PRECONDICIÓN= El argumento de tipo ExpA empleado debe coincidir con el caso "Neg x".
-siguienteDeNeg (Neg op) = op
+negacionSimplificada :: ExpA -> ExpA
+negacionSimplificada (Neg op) = op
+negacionSimplificada op       = Neg op 
