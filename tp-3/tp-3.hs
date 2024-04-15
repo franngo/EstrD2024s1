@@ -89,11 +89,19 @@ tesorosAca (x:xs) = (unoSi (esTesoro x)) + tesorosAca xs
 --DESAFÍO
 
 cantTesorosEntre :: Int -> Int -> Camino -> Int
-cantTesorosEntre _  _   Fin               = 0
-cantTesorosEntre n1 n2 (Nada cam)         = cantTesorosEntre (n1 - 1) (n2 - 1) cam 
-cantTesorosEntre n1 n2 (Cofre objs cam)   = if (n1<=0 && n2>=0 && contieneTesoro objs)
-                                              then (tesorosAca objs) + (cantTesorosEntre (n1 - 1) (n2 - 1) cam)
-                                              else cantTesorosEntre (n1 - 1) (n2 - 1) cam
+--PRECONDICIÓN= n debe ser mayor o igual 0 y m mayor o igual a n.
+cantTesorosEntre _  _  Fin              = 0
+cantTesorosEntre 0  n2 (Nada cam)       = revisarHastaEl (n2 - 1) cam
+cantTesorosEntre 0  n2 (Cofre objs cam) = (tesorosAca objs) + revisarHastaEl (n2 - 1) cam
+cantTesorosEntre n1 n2 (Nada cam)       = cantTesorosEntre (n1 - 1) (n2 - 1) cam 
+cantTesorosEntre n1 n2 (Cofre objs cam) = cantTesorosEntre (n1 - 1) (n2 - 1) cam
+
+revisarHastaEl :: Int -> Camino -> Int 
+revisarHastaEl _ Fin              = 0
+revisarHastaEl 0 (Cofre objs cam) = (tesorosAca objs)
+revisarHastaEl 0 _                = 0
+revisarHastaEl n (Nada cam)       = revisarHastaEl (n - 1) cam
+revisarHastaEl n (Cofre objs cam) = (tesorosAca objs) + revisarHastaEl (n - 1) cam
 
 --2. Tipos arbóreos
 
