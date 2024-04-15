@@ -134,7 +134,7 @@ leaves (NodeT x EmptyT EmptyT) = [x]
 leaves (NodeT x ys zs)         = (leaves ys) ++ (leaves zs)
 
 heightT :: Tree a -> Int
-heightT EmptyT          = (-1)
+heightT EmptyT          = 0
 heightT (NodeT x t1 t2) = 1 + mayorEntre (heightT t1) (heightT t2)
 
 mayorEntre :: Int -> Int -> Int
