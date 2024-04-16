@@ -438,15 +438,15 @@ superioresDelCazador n (M l) = superioresAlNivel (nivelEnTree n 0 l) l
 
 nivelEnTree :: Nombre -> Int -> Lobo -> Int
 --Precondición: hay un cazador con dicho nombre y es único.
-nivelEnTree nom num (Cria _)                = 0
+nivelEnTree _ _ (Cria _)                   = 0
 nivelEnTree nom num (Explorador _ _ l1 l2) = (nivelEnTree nom (num+1) l1) + (nivelEnTree nom (num+1) l2)
-nivelEnTree nom num (Cazador n _ l1 l2 l3)  = if (nom==n)
-                                                then num
-                                                else (nivelEnTree nom (num+1) l1) + (nivelEnTree nom (num+1) l2) + (nivelEnTree nom (num+1) l3)
+nivelEnTree nom num (Cazador n _ l1 l2 l3) = if (nom==n)
+                                               then num
+                                               else (nivelEnTree nom (num+1) l1) + (nivelEnTree nom (num+1) l2) + (nivelEnTree nom (num+1) l3)
 
 superioresAlNivel :: Int -> Lobo -> [Nombre]
 superioresAlNivel 0 _                        = []
-superioresAlNivel n (Cria _)                 = []
+superioresAlNivel _ (Cria _)                 = []
 superioresAlNivel n (Explorador _ _ l1 l2)   = (superioresAlNivel (n-1) l1) ++ (superioresAlNivel (n-1) l2)
 superioresAlNivel n (Cazador nom _ l1 l2 l3) = nom : (superioresAlNivel (n-1) l1) ++ (superioresAlNivel (n-1) l2) ++ (superioresAlNivel (n-1) l3)
 
