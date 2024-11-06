@@ -1,0 +1,23 @@
+GCC (g++ -v)
+(usamos compilador de c++, pero la sintáxis usada es más cercana a la de C)
+
+todo archivo con codigo en c++ tiene UN solo main
+
+extension de archivo c++: cpp
+
+para punto 3: 3 archivos= main.cpp (o como quiera ponerle) Par.h y Par.cpp
+
+para generar ejecutable: g++ -o <nombre a elegir> main.cpp Par.cpp
+(lo que quier hacer ejecutable es el main, pero para eso tengo que pasar la implementación usada)
+si quiero imprimir en pantalla con alguna función del main, tengo que incluir EN EL MAIN
+#include <iostream>
+using namespace std;
+¿?PERO en el archivo de la implementación (o sea, par.cpp)¿?
+
+(para ejecutables de programas donde no uso un tad, simplemente: g++ -o <nombre a elegir> main.cpp)
+(acá SÍ voy a necesitar el 
+#include <iostream>
+using namespace std;
+en el archivo del main)
+
+en cpp tenemos el rol del implementador, en h la interfaz y en main el rol de usuario.

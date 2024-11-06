@@ -1,0 +1,9 @@
+-posibilidad para hacer borrado de heap =
+.1ro guardarse direc de dato a borrar en var temp | x* temp = p; 
+.2do dar nueva direccion a puntero | p= new nacer("José",22);
+.3ro hacer lo que se tenga intención de hacer con el dato de la direccion que quedo
+en la var temp (ya sea modificar o borrar) | delete temp O SINO cambioDeNombre("Luis", crecer(temp));
+
+
+-Defino poniendo PersonaSt* p en vez de Persona p porque el dato para el usuario (que no conoce implementación. No sabe si es un puntero o
+qué) es una Persona, pero para el implementador, que si la conoce, es un puntero a PersonaSt.
